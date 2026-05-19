@@ -1,0 +1,50 @@
+name: CI - Frontend
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  validar-frontend:
+    name: Validar estrutura do frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar codigo do repositorio
+        uses: actions/checkout@v4
+
+      - name: Listar arquivos
+        run: ls -la
+
+      - name: Verificar arquivo HTML principal
+        run: |
+          if [ -f "index.html" ]; then
+            echo "Arquivo index.html encontrado."
+          else
+            echo "Erro: arquivo index.html nao encontrado."
+            exit 1
+          fi
+
+      - name: Verificar arquivos CSS
+        run: |
+          if find . -name "*.css" | grep -q .; then
+            echo "Arquivos CSS encontrados."
+          else
+            echo "Aviso: nenhum arquivo CSS encontrado."
+          fi
+
+      - name: Verificar arquivos JavaScript
+        run: |
+          if find . -name "*.js" | grep -q .; then
+            echo "Arquivos JavaScript encontrados."
+          else
+            echo "Aviso: nenhum arquivo JavaScript encontrado."
+          fi
+
+      - name: Validacao concluida
+        run: echo "CI do frontend executado com sucesso."
