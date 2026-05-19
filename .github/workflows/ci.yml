@@ -18,21 +18,27 @@ jobs:
       - name: Baixar codigo do repositorio
         uses: actions/checkout@v4
 
-      - name: Listar arquivos
-        run: ls -la
-
-      - name: Verificar arquivo HTML principal
+      - name: Listar arquivos do repositorio
         run: |
-          if [ -f "FRONTEND Projeto/src/index.html" ]; then
-            echo "Arquivo index.html encontrado."
+          echo "Listando arquivos principais:"
+          ls -la
+
+      - name: Procurar arquivo index.html
+        run: |
+          echo "Procurando index.html no projeto..."
+          INDEX_FILE=$(find . -name "index.html" | head -n 1)
+
+          if [ -n "$INDEX_FILE" ]; then
+            echo "Arquivo index.html encontrado em: $INDEX_FILE"
           else
-            echo "Erro: arquivo index.html nao encontrado."
+            echo "Erro: nenhum arquivo index.html foi encontrado no projeto."
             exit 1
           fi
 
-            - name: Verificar arquivos CSS
+      - name: Verificar arquivos CSS
         run: |
-          if find "FRONTEND Projeto/src" -name "*.css" | grep -q .; then
+          echo "Procurando arquivos CSS..."
+          if find . -name "*.css" | grep -q .; then
             echo "Arquivos CSS encontrados."
           else
             echo "Aviso: nenhum arquivo CSS encontrado."
@@ -40,7 +46,8 @@ jobs:
 
       - name: Verificar arquivos JavaScript
         run: |
-          if find "FRONTEND Projeto/src" -name "*.js" | grep -q .; then
+          echo "Procurando arquivos JavaScript..."
+          if find . -name "*.js" | grep -q .; then
             echo "Arquivos JavaScript encontrados."
           else
             echo "Aviso: nenhum arquivo JavaScript encontrado."
