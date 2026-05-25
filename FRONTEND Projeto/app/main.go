@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	fileserver := http.FileServer(http.Dir("../static"))
+	fileserver := http.FileServer(http.Dir("./static"))
 
 	http.Handle("/", fileserver)
 

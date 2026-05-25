@@ -20,13 +20,6 @@
   --color-warning: #f59e0b;
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-
 body {
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -272,6 +265,7 @@ body {
 }
 
 .report-btn:hover {
+  transform: translateY(-1px);
   opacity: 0.95;
 }
 

@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Flamboyant</title>
     <link rel="stylesheet" href="./src/css/style.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/global.css">
 </head>
+
 <body>
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="./src/img/Logo Flamboyant.png" alt="">
+            <img src="./src/assets/Logo Flamboyant.png" alt="">
             <span class="">Shopping<br>Flamboyant</span>
         </div>
         <nav class="nav">
@@ -73,8 +77,14 @@
             <section class="filters">
                 <div class="filter-card">
                     <span class="filter-label">Loja</span>
-                    <select>
-                        <option>Todas as Lojas</option>
+                    <select name="lojas" id="lojas" class="filter-select">
+                        <option value="Todas as Lojas" selected>Todas as Lojas</option>
+                        <option value="Renner">Renner</option>
+                        <option value="Nike">Nike</option>
+                        <option value="Vivara">Vivara</option>
+                        <option value="C&A">C&A</option>
+                        <option value="McDonalds">McDonalds</option>
+                        <option value="Burguer King">Burguer King</option>
                     </select>
                 </div>
                 <div class="filter-card">
@@ -85,182 +95,189 @@
                 </div>
                 <div class="filter-card">
                     <span class="filter-label">Data Início</span>
-                    <input type="text" placeholder="dd/mm/aaaa">
+                    <input type="date">
                 </div>
                 <div class="filter-card">
                     <span class="filter-label">Data Fim</span>
-                    <input type="text" placeholder="dd/mm/aaaa">
+                    <input type="date">
                 </div>
             </section>
-
-            <section class="dashboard-grid">
-                <article class="summary-card card-blue">
-                    <div class="summary-card-header">
-                        <div class="summary-icon">🏬</div>
+            <div id="conteudo-dashboard">
+                <section class="dashboard-grid">
+                    <article class="summary-card card-blue">
+                        <div class="summary-card-header">
+                            <div class="summary-icon">🏬</div>
+                            <div>
+                                <span class="summary-title">Lojas do Shopping</span>
+                                <strong class="summary-value">290</strong>
+                            </div>
+                        </div>
+                        <div class="summary-details">
+                            <div class="detail-item occupied">
+                                <span>Ocupadas</span>
+                                <strong>271</strong>
+                            </div>
+                            <div class="detail-item vacant">
+                                <span>Desocupadas</span>
+                                <strong>19</strong>
+                            </div>
+                        </div>
+                    </article>
+    
+                    <article class="summary-card card-green">
+                        <div class="summary-card-header">
+                            <div class="summary-icon">📈</div>
+                            <div>
+                                <span class="summary-title">Taxa de Ocupação</span>
+                                <strong class="summary-value">93.4%</strong>
+                            </div>
+                        </div>
+                        <div class="progress-bar-wrapper">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 93.4%;"></div>
+                            </div>
+                            <div class="progress-info">
+                                <span>0%</span>
+                                <span>271 de 290 lojas ocupadas</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                    </article>
+    
+                    <article class="summary-card card-yellow">
+                        <div class="summary-card-header">
+                            <div class="summary-icon">🔔</div>
+                            <div>
+                                <span class="summary-title">Notificações Pendentes</span>
+                                <p>Você tem 4 notificações que requerem atenção</p>
+                            </div>
+                        </div>
+                        <ul class="notification-list">
+                            <li>Loja Moda 45 - Operacional</li>
+                            <li>Restaurante 32 - Segurança</li>
+                        </ul>
+                        <a href="#" class="view-all-link">Clique para ver todas</a>
+                    </article>
+    
+                    <article class="summary-card card-red">
+                        <div class="summary-card-header">
+                            <div class="summary-icon">❗</div>
+                            <div>
+                                <span class="summary-title">Sinistros em Aberto</span>
+                                <p>3 sinistros aguardando resolução</p>
+                            </div>
+                        </div>
+                        <ul class="notification-list">
+                            <li>Loja Moda 12 - Vazamento <span class="amount">R$ 5k</span></li>
+                            <li>Cafeteria 5 - Incêndio <span class="amount">R$ 25k</span></li>
+                        </ul>
+                        <a href="#" class="view-all-link">Clique para ver todos</a>
+                    </article>
+                </section>
+    
+                <section class="stores">
+                    <div class="stores-header">
                         <div>
-                            <span class="summary-title">Lojas do Shopping</span>
-                            <strong class="summary-value">290</strong>
+                            <h2>Lojas</h2>
+                            <p>Status operacional e financeiro - 290 lojas - Valores mensais</p>
                         </div>
                     </div>
-                    <div class="summary-details">
-                        <div class="detail-item occupied">
-                            <span>Ocupadas</span>
-                            <strong>271</strong>
+                    <div class="stores-card">
+                        <div class="table-scroll">
+                            <table class="stores-table">
+                                <thead>
+                                    <tr>
+                                        <th>LUC</th>
+                                        <th>LOJA</th>
+                                        <th>SEGMENTO</th>
+                                        <th>STATUS</th>
+                                        <th>OCORRÊNCIAS</th>
+                                        <th>ESTIMADO</th>
+                                        <th>REAL</th>
+                                        <th>DIFERENÇA</th>
+                                        <th>TAXA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>DS-07</td>
+                                        <td class="store-name">SORTE MILIONARIA</td>
+                                        <td>Serviços</td>
+                                        <td><span class="status active">Ativa</span></td>
+                                        <td>Nenhuma</td>
+                                        <td>R$ 7.695</td>
+                                        <td>R$ 7.824</td>
+                                        <td class="positive">R$ 129</td>
+                                        <td class="success">101.7%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DS-20</td>
+                                        <td class="store-name">CAIXA</td>
+                                        <td>Serviços</td>
+                                        <td><span class="status active">Ativa</span></td>
+                                        <td>Nenhuma</td>
+                                        <td>R$ 7.236</td>
+                                        <td>R$ 7.472</td>
+                                        <td class="positive">R$ 236</td>
+                                        <td class="success">103.3%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>P-074</td>
+                                        <td class="store-name">ZEISS</td>
+                                        <td>Óticas</td>
+                                        <td><span class="status active">Ativa</span></td>
+                                        <td>Nenhuma</td>
+                                        <td>R$ 8.698</td>
+                                        <td>R$ 8.234</td>
+                                        <td class="negative">-R$ 464</td>
+                                        <td class="warning">94.7%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>P-090</td>
+                                        <td class="store-name">MR. CHENEY</td>
+                                        <td>Alimentação</td>
+                                        <td><span class="status active">Ativa</span></td>
+                                        <td>Nenhuma</td>
+                                        <td>R$ 5.691</td>
+                                        <td>R$ 6.005</td>
+                                        <td class="positive">R$ 314</td>
+                                        <td class="success">105.5%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>P-102</td>
+                                        <td class="store-name">PANDA POOL</td>
+                                        <td>Moda</td>
+                                        <td><span class="status active">Ativa</span></td>
+                                        <td>Nenhuma</td>
+                                        <td>R$ 8.487</td>
+                                        <td>R$ 7.920</td>
+                                        <td class="negative">-R$ 567</td>
+                                        <td class="warning">93.3%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="detail-item vacant">
-                            <span>Desocupadas</span>
-                            <strong>19</strong>
+                        <div class="stores-footer">
+                            <span>Exibindo 1-15 de 290 lojas</span>
+                            <nav class="pagination">
+                                <button class="page-btn">Anterior</button>
+                                <button class="page-number active">1</button>
+                                <button class="page-number">2</button>
+                                <span class="page-dots">...</span>
+                                <button class="page-number">20</button>
+                                <button class="page-btn">Próxima</button>
+                            </nav>
                         </div>
                     </div>
-                </article>
-
-                <article class="summary-card card-green">
-                    <div class="summary-card-header">
-                        <div class="summary-icon">📈</div>
-                        <div>
-                            <span class="summary-title">Taxa de Ocupação</span>
-                            <strong class="summary-value">93.4%</strong>
-                        </div>
-                    </div>
-                    <div class="progress-bar-wrapper">
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 93.4%;"></div>
-                        </div>
-                        <div class="progress-info">
-                            <span>0%</span>
-                            <span>271 de 290 lojas ocupadas</span>
-                            <span>100%</span>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="summary-card card-yellow">
-                    <div class="summary-card-header">
-                        <div class="summary-icon">🔔</div>
-                        <div>
-                            <span class="summary-title">Notificações Pendentes</span>
-                            <p>Você tem 4 notificações que requerem atenção</p>
-                        </div>
-                    </div>
-                    <ul class="notification-list">
-                        <li>Loja Moda 45 - Operacional</li>
-                        <li>Restaurante 32 - Segurança</li>
-                    </ul>
-                    <a href="#" class="view-all-link">Clique para ver todas</a>
-                </article>
-
-                <article class="summary-card card-red">
-                    <div class="summary-card-header">
-                        <div class="summary-icon">❗</div>
-                        <div>
-                            <span class="summary-title">Sinistros em Aberto</span>
-                            <p>3 sinistros aguardando resolução</p>
-                        </div>
-                    </div>
-                    <ul class="notification-list">
-                        <li>Loja Moda 12 - Vazamento <span class="amount">R$ 5k</span></li>
-                        <li>Cafeteria 5 - Incêndio <span class="amount">R$ 25k</span></li>
-                    </ul>
-                    <a href="#" class="view-all-link">Clique para ver todos</a>
-                </article>
-            </section>
-
-            <section class="stores">
-                <div class="stores-header">
-                    <div>
-                        <h2>Lojas</h2>
-                        <p>Status operacional e financeiro - 290 lojas - Valores mensais</p>
-                    </div>
-                </div>
-                <div class="stores-card">
-                    <div class="table-scroll">
-                        <table class="stores-table">
-                            <thead>
-                                <tr>
-                                    <th>LUC</th>
-                                    <th>LOJA</th>
-                                    <th>SEGMENTO</th>
-                                    <th>STATUS</th>
-                                    <th>OCORRÊNCIAS</th>
-                                    <th>ESTIMADO</th>
-                                    <th>REAL</th>
-                                    <th>DIFERENÇA</th>
-                                    <th>TAXA</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>DS-07</td>
-                                    <td class="store-name">SORTE MILIONARIA</td>
-                                    <td>Serviços</td>
-                                    <td><span class="status active">Ativa</span></td>
-                                    <td>Nenhuma</td>
-                                    <td>R$ 7.695</td>
-                                    <td>R$ 7.824</td>
-                                    <td class="positive">R$ 129</td>
-                                    <td class="success">101.7%</td>
-                                </tr>
-                                <tr>
-                                    <td>DS-20</td>
-                                    <td class="store-name">CAIXA</td>
-                                    <td>Serviços</td>
-                                    <td><span class="status active">Ativa</span></td>
-                                    <td>Nenhuma</td>
-                                    <td>R$ 7.236</td>
-                                    <td>R$ 7.472</td>
-                                    <td class="positive">R$ 236</td>
-                                    <td class="success">103.3%</td>
-                                </tr>
-                                <tr>
-                                    <td>P-074</td>
-                                    <td class="store-name">ZEISS</td>
-                                    <td>Óticas</td>
-                                    <td><span class="status active">Ativa</span></td>
-                                    <td>Nenhuma</td>
-                                    <td>R$ 8.698</td>
-                                    <td>R$ 8.234</td>
-                                    <td class="negative">-R$ 464</td>
-                                    <td class="warning">94.7%</td>
-                                </tr>
-                                <tr>
-                                    <td>P-090</td>
-                                    <td class="store-name">MR. CHENEY</td>
-                                    <td>Alimentação</td>
-                                    <td><span class="status active">Ativa</span></td>
-                                    <td>Nenhuma</td>
-                                    <td>R$ 5.691</td>
-                                    <td>R$ 6.005</td>
-                                    <td class="positive">R$ 314</td>
-                                    <td class="success">105.5%</td>
-                                </tr>
-                                <tr>
-                                    <td>P-102</td>
-                                    <td class="store-name">PANDA POOL</td>
-                                    <td>Moda</td>
-                                    <td><span class="status active">Ativa</span></td>
-                                    <td>Nenhuma</td>
-                                    <td>R$ 8.487</td>
-                                    <td>R$ 7.920</td>
-                                    <td class="negative">-R$ 567</td>
-                                    <td class="warning">93.3%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="stores-footer">
-                        <span>Exibindo 1-15 de 290 lojas</span>
-                        <nav class="pagination">
-                            <button class="page-btn">Anterior</button>
-                            <button class="page-number active">1</button>
-                            <button class="page-number">2</button>
-                            <span class="page-dots">...</span>
-                            <button class="page-number">20</button>
-                            <button class="page-btn">Próxima</button>
-                        </nav>
-                    </div>
-                </div>
-            </section>
+                </section>
+            </div>
+            <div id="dadosLojas" class="hidden">
+                <section>
+                    <h1 id="titulo-informacoes-loja"></h1>
+                </section>
+            </div>
         </main>
     </div>
 </body>
+<script src="./src/scripts/index.js"></script>
 </html>
