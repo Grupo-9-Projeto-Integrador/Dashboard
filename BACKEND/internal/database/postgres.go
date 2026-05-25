@@ -25,15 +25,15 @@ func main() {
 
 	fmt.Println("Conectado com sucesso!")
 
-	rows, err := db.Query("SELECT luc ,nome, segmento FROM lojas")
+	rows, err := db.Query("SELECT luc ,nome, segmento, post_instagram, seguro, sinistro, vigencia_de_contrato, dia_de_renovacao, qtd_funcionarios, treinamentos, notificacoes FROM lojas")
 	if err != nil {
 		panic(err)
 	}
 	defer rows.Close()
 
 	for rows.Next() {
-		var luc, nome, segmento string
-		rows.Scan(&luc, &nome, &segmento)
-		fmt.Println(luc, "-", nome, "-", segmento)
+		var luc, nome, segmento, post_instagram, seguro, sinistro, vigencia_de_contrato, dia_de_renovacao, qtd_funcionarios, treinamentos, notificacoes string
+		rows.Scan(&luc, &nome, &segmento, &post_instagram, &seguro, &sinistro, &vigencia_de_contrato, &dia_de_renovacao, &qtd_funcionarios, &treinamentos, &notificacoes)
+		fmt.Println(luc, "-", nome, "-", segmento, "-" ,post_instagram,"-", seguro,"-", sinistro,"-" ,vigencia_de_contrato,"-" , dia_de_renovacao,"-" ,qtd_funcionarios,"-" ,treinamentos,"-" ,notificacoes)
 	}
 }
