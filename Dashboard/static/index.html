@@ -79,12 +79,9 @@
                     <span class="filter-label">Loja</span>
                     <select name="lojas" id="lojas" class="filter-select">
                         <option value="Todas as Lojas" selected>Todas as Lojas</option>
-                        <option value="Renner">Renner</option>
-                        <option value="Nike">Nike</option>
-                        <option value="Vivara">Vivara</option>
-                        <option value="C&A">C&A</option>
-                        <option value="McDonalds">McDonalds</option>
-                        <option value="Burguer King">Burguer King</option>
+                        {{range .}}
+                            <option value="{{.Nome}}">{{.Nome}}</option>
+                        {{end}}
                     </select>
                 </div>
                 <div class="filter-card">

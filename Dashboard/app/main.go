@@ -1,12 +1,14 @@
 package main
 
 import (
+	"DASHBOARD/internal/utils"
 	"fmt"
 	"log"
 	"net/http"
 )
 
 func main() {
+	utils.ConnectToDb()
 	fileserver := http.FileServer(http.Dir("./static"))
 
 	http.Handle("/", fileserver)
