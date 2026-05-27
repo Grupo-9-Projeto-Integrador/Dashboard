@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Flamboyant</title>
+    <link rel="stylesheet" href="../static/src/css/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../static/src/css/reset.css">
+    <link rel="stylesheet" href="../static/src/css/global.css">
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="./src/assets/Logo Flamboyant.png" alt="">
+            <span class="">Shopping<br>Flamboyant</span>
+        </div>
+        <nav class="nav">
+            <a href="#" class="nav-item active">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="nav-item">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Sair
+            </button>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="header">
+            <div class="header-actions">
+                <button class="icon-btn" title="Modo escuro">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="icon-btn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="user-info">
+                    <div class="user-details">
+                        <span class="user-name">Gerência de Relacionamento</span>
+                        <span class="user-role">JP Mall Operações</span>
+                    </div>
+                    <div class="user-avatar">GR</div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <section class="dashboard-header">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Visão geral operacional e financeira do shopping</p>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="compare-btn">Comparar Lojas</button>
+                    <button class="report-btn">Gerar Relatório</button>
+                </div>
+            </section>
+
+            <section class="filters">
+                <div class="filter-card">
+                    <span class="filter-label">Loja</span>
+                    <select name="lojas" id="lojas" class="filter-select">
+                        <option value="Todas as Lojas" selected>Todas as Lojas</option>
+                        {{range .}}
+                        <option value="{{.Nome}}">{{.Nome}}</option>
+                        {{end}}
+                    </select>
+                </div>
+                <div class="filter-card">
+                    <span class="filter-label">Segmento</span>
+                    <select>
+                        <option>Todos os Segmentos</option>
+                        {{range .}}
+                            <option value="{{.Segmentos}}">{{.Segmentos}}</option>
+                        {{end}}
+                    </select>
+                </div>
+                <div class="filter-card">
+                    <span class="filter-label">Data Início</span>
+                    <input type="date">
+                </div>
+                <div class="filter-card">
+                    <span class="filter-label">Data Fim</span>
+                    <input type="date">
+                </div>
+            </section>
+            <div id="conteudo-dashboard">
+                <section class="dashboard-grid">
+                    <article class="summary-card card-blue">
+                        <div class="summary-card-header">
+                            <div class="summary-icon">🏬</div>
+                            <div>
+                                <span class="summary-title">Lojas do Shopping</span>
+                                <strong class="summary-value">290</strong>
+                            </div>
+                        </div>
+                        <div class="summary-details">
+                            <div class="detail-item occupied">
+                                <span>Ocupadas</span>
+                                <strong>271</strong>
+                            </div>
+                            <div class="detail-item vacant">
+                                <span>Desocupadas</span>
+                                <strong>19</strong>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="summary-card card-green">
+                        <div class="summary-card-header">
+                            <div class="summary-icon">📈</div>
+                            <div>
+                                <span class="summary-title">Taxa de Ocupação</span>
+                                <strong class="summary-value">93.4%</strong>
+                            </div>
+                        </div>
+                        <div class="progress-bar-wrapper">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 93.4%;"></div>
+                            </div>
+                            <div class="progress-info">
+                                <span>0%</span>
+                                <span>271 de 290 lojas ocupadas</span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="summary-card card-yellow">
+                        <div class="summary-card-header">
+                            <div class="summary-icon">🔔</div>
+                            <div>
+                                <span class="summary-title">Notificações Pendentes</span>
+                                <p>Você tem 4 notificações que requerem atenção</p>
+                            </div>
+                        </div>
+                        <ul class="notification-list">
+                            <li>Loja Moda 45 - Operacional</li>
+                            <li>Restaurante 32 - Segurança</li>
+                        </ul>
+                        <a href="#" class="view-all-link">Clique para ver todas</a>
+                    </article>
+
+                    <article class="summary-card card-red">
+                        <div class="summary-card-header">
+                            <div class="summary-icon">❗</div>
+                            <div>
+                                <span class="summary-title">Sinistros em Aberto</span>
+                                <p>3 sinistros aguardando resolução</p>
+                            </div>
+                        </div>
+                        <ul class="notification-list">
+                            <li>Loja Moda 12 - Vazamento <span class="amount">R$ 5k</span></li>
+                            <li>Cafeteria 5 - Incêndio <span class="amount">R$ 25k</span></li>
+                        </ul>
+                        <a href="#" class="view-all-link">Clique para ver todos</a>
+                    </article>
+                </section>
+
+                <section class="stores">
+                    <div class="stores-header">
+                        <div>
+                            <h2>Lojas</h2>
+                            <p>Status operacional e financeiro - 290 lojas - Valores mensais</p>
+                        </div>
+                    </div>
+                    <div class="stores-card">
+                        <div class="table-scroll">
+                            <table class="stores-table">
+                                <thead>
+                                    <tr>
+                                        <th>LUC</th>
+                                        <th>LOJA</th>
+                                        <th>SEGMENTO</th>
+                                        <th>STATUS</th>
+                                        <th>Sinistros</th>
+                                        <th>ESTIMADO</th>
+                                        <th>REAL</th>
+                                        <th>DIFERENÇA</th>
+                                        <th>TAXA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{range .}}
+                                    <tr>
+                                        <td>{{.Luc}}</td>
+                                        <td class="store-name">{{.Nome}}</td>
+                                        <td>{{.Segmento}}</td>
+                                        <td><span class="status active">Ativa</span></td>
+                                        <td>{{.Sinistro}}</td>
+                                        <td>R$ 7.695</td>
+                                        <td>R$ 7.824</td>
+                                        <td class="positive">R$ 129</td>
+                                        <td class="success">101.7%</td>
+                                    </tr>
+                                    {{end}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="stores-footer">
+                            <span>Exibindo 1-15 de 290 lojas</span>
+                            <nav class="pagination">
+                                <button class="page-btn">Anterior</button>
+                                <button class="page-number active">1</button>
+                                <button class="page-number">2</button>
+                                <span class="page-dots">...</span>
+                                <button class="page-number">20</button>
+                                <button class="page-btn">Próxima</button>
+                            </nav>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="dadosLojas" class="hidden">
+                <section>
+                    <h1 id="titulo-informacoes-loja"></h1>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+<script src="../static/src/scripts/index.js"></script>
+
+</html>

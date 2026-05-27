@@ -1,4 +1,4 @@
-package utils
+package db
 
 import (
 	"database/sql"
@@ -7,16 +7,17 @@ import (
 	_ "github.com/lib/pq"
 )
 
+var DB *sql.DB
 
 func ConnectToDb() {
 	connStr := "postgresql://neondb_owner:npg_axdFA5T3iPzY@ep-old-rain-acx47pbv-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 
-	DB, err := sql.Open("postgres", connStr)
+	var err error
+
+	DB, err = sql.Open("postgres", connStr)
 	if err != nil {
 		panic(err)
 	}
-
-	defer DB.Close()
 
 	err = DB.Ping()
 	if err != nil {
