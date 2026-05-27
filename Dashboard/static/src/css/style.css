@@ -620,20 +620,16 @@ body {
   flex-wrap: wrap;
 }
 
-.pagination button,
-.pagination .page-number,
-.pagination .page-dots {
+.stores-footer-btn {
   border: none;
   background: #f8fafc;
   color: var(--color-text-primary);
   padding: 0.75rem 1rem;
   border-radius: 999px;
-  cursor: pointer;
   font-weight: 700;
 }
 
-.pagination button:hover,
-.pagination .page-number:hover {
+.btn-active:hover, .page-number:hover {
   background: #e5e7eb;
 }
 
@@ -645,6 +641,14 @@ body {
 .pagination .page-dots {
   background: transparent;
   cursor: default;
+}
+
+.btn-disabled {
+  cursor: default;
+}
+
+.btn-active {
+  cursor: pointer;
 }
 
 @media (max-width: 1100px) {
@@ -675,3 +679,4 @@ body {
     grid-template-columns: 1fr;
   }
 }
+

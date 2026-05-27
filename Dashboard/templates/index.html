@@ -14,7 +14,7 @@
 <body>
     <aside class="sidebar">
         <div class="sidebar-header">
-            <img src="./src/assets/Logo Flamboyant.png" alt="">
+            <img src="../static/src/assets/Logo Flamboyant.png" alt="">
             <span class="">Shopping<br>Flamboyant</span>
         </div>
         <nav class="nav">
@@ -79,7 +79,7 @@
                     <span class="filter-label">Loja</span>
                     <select name="lojas" id="lojas" class="filter-select">
                         <option value="Todas as Lojas" selected>Todas as Lojas</option>
-                        {{range .}}
+                        {{range .ListaLojas}}
                         <option value="{{.Nome}}">{{.Nome}}</option>
                         {{end}}
                     </select>
@@ -88,8 +88,8 @@
                     <span class="filter-label">Segmento</span>
                     <select>
                         <option>Todos os Segmentos</option>
-                        {{range .}}
-                            <option value="{{.Segmentos}}">{{.Segmentos}}</option>
+                        {{range .Segmentos}}
+                            <option value="{{.}}">{{.}}</option>
                         {{end}}
                     </select>
                 </div>
@@ -109,7 +109,7 @@
                             <div class="summary-icon">🏬</div>
                             <div>
                                 <span class="summary-title">Lojas do Shopping</span>
-                                <strong class="summary-value">290</strong>
+                                <strong class="summary-value">{{len .ListaLojas}}</strong>
                             </div>
                         </div>
                         <div class="summary-details">
@@ -199,8 +199,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{range .}}
-                                    <tr>
+                                    {{range $index, $element := .ListaLojas}}
+                                    {{if le $index 14}}
+                                    <tr class="tabela1">
                                         <td>{{.Luc}}</td>
                                         <td class="store-name">{{.Nome}}</td>
                                         <td>{{.Segmento}}</td>
@@ -212,18 +213,19 @@
                                         <td class="success">101.7%</td>
                                     </tr>
                                     {{end}}
+                                    {{end}}
                                 </tbody>
                             </table>
                         </div>
                         <div class="stores-footer">
                             <span>Exibindo 1-15 de 290 lojas</span>
                             <nav class="pagination">
-                                <button class="page-btn">Anterior</button>
-                                <button class="page-number active">1</button>
-                                <button class="page-number">2</button>
+                                <button class="page-btn stores-footer-btn btn-disabled">Anterior</button>
+                                <button class="page-number stores-footer-btn active" value=""></button>
+                                <button class="page-number stores-footer-btn" value=""></button>
                                 <span class="page-dots">...</span>
-                                <button class="page-number">20</button>
-                                <button class="page-btn">Próxima</button>
+                                <button class="page-number stores-footer-btn">20</button>
+                                <button class="page-btn stores-footer-btn btn-active">Próxima</button>
                             </nav>
                         </div>
                     </div>
@@ -237,6 +239,6 @@
         </main>
     </div>
 </body>
-<script src="../static/src/scripts/index.js"></script>
-
+<script src="../static/src/scripts/filter.js"></script>
+<script src="../static/src/scripts/tabelaLojas.js"></script>
 </html>

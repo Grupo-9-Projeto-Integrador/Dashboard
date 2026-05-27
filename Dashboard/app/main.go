@@ -16,12 +16,11 @@ func handlerSelect(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Passa a lista de estados para o template
-	tmpl.ExecuteTemplate(w,"index.html", db.Dados)
+	tmpl.ExecuteTemplate(w,"index.html", db.BuscarLojas())
 }
 
 func main() {
 	db.ConnectToDb()
-	db.BuscarLojas()
 	fileserver := http.FileServer(http.Dir("static/"))
 
 	http.Handle("/static/", http.StripPrefix("/static/", fileserver))
