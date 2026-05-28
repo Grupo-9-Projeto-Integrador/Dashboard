@@ -75,5 +75,4 @@ btnAnterior.addEventListener('click', () => {
     console.log(numPagina)
 })
 
-//oi
 

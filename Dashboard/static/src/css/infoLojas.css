@@ -1,0 +1,46 @@
+.info-blocks {
+    margin-top: 25px;
+    height: 120px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-blocks .block {
+    display: flex;
+    width: 450px;
+    border-radius: 12px;
+    align-items: center;
+    padding-left: 20px;
+    gap: 10px;
+}
+
+.seguro-block {
+    
+}
+
+.seguro-ativo {
+    background-color: oklch(98.2% 0.018 155.826);
+    border: 2px solid oklch(87.1% 0.15 154.449);;
+}
+
+.seguro-icon {
+}
+
+.seguro-ativo-icon {
+    color: oklch(62.7% 0.194 149.214);
+}
+
+
+.contrato-block {
+    background-color: oklch(97% 0.014 254.604);
+    border: 2px solid oklch(80.9% 0.105 251.813);
+}
+
+.contrato-icon {
+    color: oklch(54.6% 0.245 262.881);
+}
+
+.renovatoria-block {
+    background-color: oklch(98.5% 0.002 247.839);
+    border: 2px solid oklch(87.2% 0.01 258.338);
+}

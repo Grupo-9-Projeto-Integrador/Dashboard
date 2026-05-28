@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../static/src/css/reset.css">
     <link rel="stylesheet" href="../static/src/css/global.css">
+    <link rel="stylesheet" href="../static/src/css/infoLojas.css">
 </head>
 
 <body>
@@ -77,12 +78,14 @@
             <section class="filters">
                 <div class="filter-card">
                     <span class="filter-label">Loja</span>
-                    <select name="lojas" id="lojas" class="filter-select">
-                        <option value="Todas as Lojas" selected>Todas as Lojas</option>
-                        {{range .ListaLojas}}
-                        <option value="{{.Nome}}">{{.Nome}}</option>
-                        {{end}}
-                    </select>
+                        <form id="lojasForm" action="/infoLoja" method="get" onchange="enviarDados()">
+                            <select name="loja" id="lojas" class="filter-select">
+                                <option value="Todas as Lojas" selected>Todas as Lojas</option>
+                                {{range .ListaLojas}}
+                                <option value="{{.Nome}}">{{.Nome}}</option>
+                                {{end}}
+                            </select>
+                        </form>
                 </div>
                 <div class="filter-card">
                     <span class="filter-label">Segmento</span>
@@ -232,8 +235,35 @@
                 </section>
             </div>
             <div id="dadosLojas" class="hidden">
-                <section>
-                    <h1 id="titulo-informacoes-loja"></h1>
+                <h2 id="titulo-informacoes-loja"></h2>
+                <section class="info-blocks">
+                    <div class="block seguro-block seguro-ativo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="seguro-icon seguro-ativo-icon" data-fgid-38d463=":rmu:"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+                        <div class="infos-seguro">
+                            <p>Status do Seguro</p>
+                            {{range .InfoLoja}}
+                            <h3>{{.Seguro}}</h3>
+                            {{end}}
+                            <p>Apólice: AP-80286</p>
+                        </div>
+                    </div>
+                    <div class="block contrato-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="contrato-icon" data-fgid-38d476=":rn5:"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+                        <div class="infos-contrato">
+                            <p>Vigência do contrato</p>
+                            {{range .InfoLoja}}
+                            <h3>{{.VigenciaContrato}}</h3>
+                            <p>Renovatória: {{.DiaDeRenovacao}}</p>
+                            {{end}}
+                        </div>
+                    </div>
+                    <div class="block renovatoria-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock w-8 h-8 text-gray-600" data-fg-38d488="355.280:406.21156:/src/app/pages/Dashboard.tsx:2006:19:124045:119:e:Clock::::::EGEm" data-fgid-38d488=":rnc:"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <div class="infos-renovatoria">
+                            <p>Dias para Renovatória</p>
+                            <h3>171 dias</h3>
+                        </div>
+                    </div>
                 </section>
             </div>
         </main>

@@ -5,19 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"html/template"
 )
-
-func handlerSelect(w http.ResponseWriter, r *http.Request) {
-	tmpl, err := template.ParseFiles("templates/index.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	// Passa a lista de estados para o template
-	tmpl.ExecuteTemplate(w,"index.html", db.BuscarLojas())
-}
 
 func main() {
 	db.ConnectToDb()
@@ -25,7 +13,9 @@ func main() {
 
 	http.Handle("/static/", http.StripPrefix("/static/", fileserver))
 
-	http.HandleFunc("/", handlerSelect)
+	http.HandleFunc("/", db.HandlerSelect)
+
+	http.HandleFunc("/infoLoja", db.FormularioLojasHandler)
 
 	fmt.Printf("port running on http://localhost:8081/\n")
 
