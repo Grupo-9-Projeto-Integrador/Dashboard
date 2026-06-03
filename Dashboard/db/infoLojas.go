@@ -2,9 +2,9 @@ package db
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 	"sort"
-	"html/template"
 )
 
 type InfoLojas struct {
@@ -15,22 +15,23 @@ type InfoLojas struct {
 }
 
 type InfoLoja struct {
-	Seguro string
+	Nome             string
+	Seguro           string
 	VigenciaContrato string
-	DiaDeRenovacao string
+	DiaDeRenovacao   string
 }
 
 type DadosLojas struct {
 	ListaLojas []InfoLojas
 	Segmentos  []string
-	InfoLoja []InfoLoja
+	InfoLoja   []InfoLoja
 }
 
 var Loja string
 var DadosLoja DadosLojas
 var Tmpl *template.Template
 
-func BuscarLojas() (Dados DadosLojas){
+func BuscarLojas() (Dados DadosLojas) {
 	rows, err := DB.Query(`SELECT luc, nome, segmento, sinistro FROM lojas ORDER BY REPLACE(REPLACE(nome, 'Á', 'A'), 'Ó', 'O') ASC`)
 	if err != nil {
 		panic(err)
@@ -58,18 +59,16 @@ func BuscarLojas() (Dados DadosLojas){
 
 	sort.Strings(D.Segmentos)
 
-
-
 	Dados = DadosLojas{
 		ListaLojas: D.ListaLojas,
 		Segmentos:  D.Segmentos,
-		InfoLoja: DadosLoja.InfoLoja,
+		InfoLoja:   DadosLoja.InfoLoja,
 	}
 
 	return Dados
 }
 
-func FormularioLojasHandler(w http.ResponseWriter, r *http.Request)  {
+func FormularioLojasHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err := r.ParseForm(); err != nil {
 		http.Error(w, "Erro ao processar formulário", http.StatusBadRequest)
@@ -78,7 +77,7 @@ func FormularioLojasHandler(w http.ResponseWriter, r *http.Request)  {
 
 	Loja = r.FormValue("loja")
 
-	rows, err := DB.Query(`SELECT seguro, vigencia_de_contrato, dia_de_renovacao FROM lojas WHERE nome = $1`, Loja)
+	rows, err := DB.Query(`SELECT nome, seguro, vigencia_de_contrato, dia_de_renovacao FROM lojas WHERE nome = $1`, Loja)
 	if err != nil {
 		panic(err)
 	}
@@ -87,16 +86,26 @@ func FormularioLojasHandler(w http.ResponseWriter, r *http.Request)  {
 	var d DadosLojas
 	for rows.Next() {
 		var i InfoLoja
-		rows.Scan(&i.Seguro, &i.VigenciaContrato, &i.DiaDeRenovacao)
+		rows.Scan(&i.Nome, &i.Seguro, &i.VigenciaContrato, &i.DiaDeRenovacao)
 		d.InfoLoja = append(d.InfoLoja, i)
 	}
 
 	DadosLoja = d
-	HandlerSelect(w,r)
 	BuscarLojas()
 	fmt.Print(BuscarLojas().InfoLoja)
-	fmt.Fprintf(w, "A opção selecionada foi: %s\n", Loja)
-	// fmt.Printf("Ação recebida: %s\n", DadosLoja.InfoLoja)
+
+	Tmpl, err := template.ParseGlob("templates/*.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// Passa a lista de estados para o template
+	if len(BuscarLojas().InfoLoja) > 0 {
+		Tmpl.ExecuteTemplate(w, "infoLoja.html", BuscarLojas())
+	} else if len(BuscarLojas().InfoLoja) == 0 {
+		Tmpl.ExecuteTemplate(w, "index.html", BuscarLojas())
+	}
 }
 
 func HandlerSelect(w http.ResponseWriter, r *http.Request) {
@@ -107,9 +116,5 @@ func HandlerSelect(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Passa a lista de estados para o template
-	Tmpl.ExecuteTemplate(w,"index.html", BuscarLojas())
+	Tmpl.ExecuteTemplate(w, "index.html", BuscarLojas())
 }
-
-
-
-

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Flamboyant</title>
+    <link rel="stylesheet" href="../static/src/css/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../static/src/css/reset.css">
+    <link rel="stylesheet" href="../static/src/css/global.css">
+    <link rel="stylesheet" href="../static/src/css/infoLojas.css">
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../static/src/assets/Logo Flamboyant.png" alt="">
+            <span class="">Shopping<br>Flamboyant</span>
+        </div>
+        <nav class="nav">
+            <a href="#" class="nav-item active">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="nav-item">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Sair
+            </button>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="header">
+            <div class="header-actions">
+                <button class="icon-btn" title="Modo escuro">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="icon-btn">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="notification-dot"></span>
+                </button>
+                <div class="user-info">
+                    <div class="user-details">
+                        <span class="user-name">Gerência de Relacionamento</span>
+                        <span class="user-role">JP Mall Operações</span>
+                    </div>
+                    <div class="user-avatar">GR</div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard">
+            <section class="dashboard-header">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Visão geral operacional e financeira do shopping</p>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="compare-btn">Comparar Lojas</button>
+                    <button class="report-btn">Gerar Relatório</button>
+                </div>
+            </section>
+
+            <section class="filters">
+                <div class="filter-card">
+                    <span class="filter-label">Loja</span>
+                    <form id="lojasForm" action="/infoLoja" method="post" onchange="enviarDados()">
+                        <select name="loja" id="lojas" class="filter-select">
+                            <option value="Todas as Lojas">Todas as Lojas</option>
+                            {{range .InfoLoja}}
+                            <option value="{{.Nome}}" selected>{{.Nome}}</option>
+                            {{end}}
+                            {{range .ListaLojas}}
+                            <option value="{{.Nome}}">{{.Nome}}</option>
+                            {{end}}
+                        </select>
+                    </form>
+                </div>
+                <div class="filter-card">
+                    <span class="filter-label">Segmento</span>
+                    <select>
+                        <option>Todos os Segmentos</option>
+                        {{range .Segmentos}}
+                        <option value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                </div>
+                <div class="filter-card">
+                    <span class="filter-label">Data Início</span>
+                    <input type="date">
+                </div>
+                <div class="filter-card">
+                    <span class="filter-label">Data Fim</span>
+                    <input type="date">
+                </div>
+            </section>
+            <div id="dadosLojas" class="">
+                <h2 id="titulo-informacoes-loja">Informações da Loja: {{range .InfoLoja}}{{.Nome}}{{end}}</h2>
+                <section class="info-blocks">
+                    <div class="block seguro-block seguro-ativo">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="seguro-icon seguro-ativo-icon" data-fgid-38d463=":rmu:">
+                            <path
+                                d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
+                            </path>
+                        </svg>
+                        <div class="infos-seguro">
+                            <p>Status do Seguro</p>
+                            {{range .InfoLoja}}
+                            <h3>{{.Seguro}}</h3>
+                            {{end}}
+                            <p>Apólice: AP-80286</p>
+                        </div>
+                    </div>
+                    <div class="block contrato-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="contrato-icon" data-fgid-38d476=":rn5:">
+                            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                            <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                            <path d="M10 9H8"></path>
+                            <path d="M16 13H8"></path>
+                            <path d="M16 17H8"></path>
+                        </svg>
+                        <div class="infos-contrato">
+                            <p>Vigência do contrato</p>
+                            {{range .InfoLoja}}
+                            <h3>{{.VigenciaContrato}}</h3>
+                            <p>Renovatória: {{.DiaDeRenovacao}}</p>
+                            {{end}}
+                        </div>
+                    </div>
+                    <div class="block renovatoria-block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-clock w-8 h-8 text-gray-600"
+                            data-fg-38d488="355.280:406.21156:/src/app/pages/Dashboard.tsx:2006:19:124045:119:e:Clock::::::EGEm"
+                            data-fgid-38d488=":rnc:">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <div class="infos-renovatoria">
+                            <p>Dias para Renovatória</p>
+                            <h3>171 dias</h3>
+                        </div>
+                    </div>
+                </section>
+                <section class="graficos">
+                    <div class="div-grafico">
+                        <canvas id="graficoTreinamentos"></canvas>
+                    </div>
+                    <div class="div-grafico">
+                        <canvas id="graficoPostagens"></canvas>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+<script src="../static/src/scripts/filter.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('graficoTreinamentos').getContext('2d');
+const ctx2 = document.getElementById('graficoPostagens').getContext('2d')
+
+const graficoTreinamentos = new Chart(ctx, {
+    type: 'bar', // Tipo de gráfico: 'bar', 'line', 'pie', etc.
+    data: {
+        labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+        datasets: [{ 
+            label: 'Participação (em %)',
+            data: [85, 90, 75, 95, 88, 92],
+            backgroundColor: [
+                'rgb(16, 185, 129)',
+                'rgb(16, 185, 129)',
+                'rgb(16, 185, 129)',
+                'rgb(16, 185, 129)',
+                'rgb(16, 185, 129)',
+                'rgb(16, 185, 129)',
+            ],
+            borderColor: [
+                'rgb(16, 185, 129)',
+                'rgb(16, 185, 129)',
+                'rgb(16, 185, 129)',
+                'rgb(16, 185, 129)',
+                'rgb(16, 185, 129)',
+                'rgb(16, 185, 129)',
+            ],
+            borderWidth: 1,
+            borderRadius: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+const graficoPostagens = new Chart(ctx2, {
+    type: 'line',
+    data: {
+        labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
+        datasets: [{ 
+            label: 'Participação (em %)',
+            data: [12, 15, 10, 18, 14, 20],
+            backgroundColor: [
+                'rgb(217, 48, 48)',
+                'rgb(217, 48, 48)',
+                'rgb(217, 48, 48)',
+                'rgb(217, 48, 48)',
+                'rgb(217, 48, 48)',
+                'rgb(217, 48, 48)',
+            ],
+            borderColor: [
+                'rgb(217, 48, 48)',
+                'rgb(217, 48, 48)',
+                'rgb(217, 48, 48)',
+                'rgb(217, 48, 48)',
+                'rgb(217, 48, 48)',
+                'rgb(217, 48, 48)',
+            ],
+            borderWidth: 1,
+            borderRadius: 10
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+})
+
+</script>
+</html>
