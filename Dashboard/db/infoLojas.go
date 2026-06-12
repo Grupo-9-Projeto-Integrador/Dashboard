@@ -16,6 +16,9 @@ type InfoLojas struct {
 
 type InfoLoja struct {
 	Nome             string
+	Segmento         string
+	Luc              string
+	Sinistro         string
 	Seguro           string
 	VigenciaContrato string
 	DiaDeRenovacao   string
@@ -77,7 +80,7 @@ func FormularioLojasHandler(w http.ResponseWriter, r *http.Request) {
 
 	Loja = r.FormValue("loja")
 
-	rows, err := DB.Query(`SELECT nome, seguro, vigencia_de_contrato, dia_de_renovacao FROM lojas WHERE nome = $1`, Loja)
+	rows, err := DB.Query(`SELECT nome, segmento, luc, sinistro, seguro, vigencia_de_contrato, dia_de_renovacao FROM lojas WHERE nome = $1`, Loja)
 	if err != nil {
 		panic(err)
 	}
@@ -86,7 +89,7 @@ func FormularioLojasHandler(w http.ResponseWriter, r *http.Request) {
 	var d DadosLojas
 	for rows.Next() {
 		var i InfoLoja
-		rows.Scan(&i.Nome, &i.Seguro, &i.VigenciaContrato, &i.DiaDeRenovacao)
+		rows.Scan(&i.Nome, &i.Segmento, &i.Luc, &i.Sinistro, &i.Seguro, &i.VigenciaContrato, &i.DiaDeRenovacao)
 		d.InfoLoja = append(d.InfoLoja, i)
 	}
 

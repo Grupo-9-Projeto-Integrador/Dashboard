@@ -19,7 +19,7 @@
             <span class="">Shopping<br>Flamboyant</span>
         </div>
         <nav class="nav">
-            <a href="#" class="nav-item active">
+            <a href="/index.html" class="nav-item active">
                 <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 </svg>
@@ -94,6 +94,9 @@
                     <span class="filter-label">Segmento</span>
                     <select>
                         <option>Todos os Segmentos</option>
+                        {{range .InfoLoja}}
+                            <option value="{{.Segmento}}" selected>{{.Segmento}}</option>
+                        {{end}}
                         {{range .Segmentos}}
                         <option value="{{.}}">{{.}}</option>
                         {{end}}
@@ -168,6 +171,45 @@
                         <canvas id="graficoPostagens"></canvas>
                     </div>
                 </section>
+                <section class="stores">
+                    <div class="stores-card">
+                        <div class="table-scroll">
+                            <table class="stores-table">
+                                <thead>
+                                    <tr>
+                                        <th>LUC</th>
+                                        <th>LOJA</th>
+                                        <th>SEGMENTO</th>
+                                        <th>STATUS</th>
+                                        <th>Sinistros</th>
+                                        <th>ESTIMADO</th>
+                                        <th>REAL</th>
+                                        <th>DIFERENÇA</th>
+                                        <th>TAXA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{range .InfoLoja}}
+                                    <tr class="tabela1">
+                                        <td>{{.Luc}}</td>
+                                        <td class="store-name">{{.Nome}}</td>
+                                        <td>{{.Segmento}}</td>
+                                        <td><span class="status active">Ativa</span></td>
+                                        <td>{{.Sinistro}}</td>
+                                        <td>R$ 7.695</td>
+                                        <td>R$ 7.824</td>
+                                        <td class="positive">R$ 129</td>
+                                        <td class="success">101.7%</td>
+                                    </tr>
+                                    {{end}}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="stores-footer">
+                            <span>Exibindo 1 de 290 lojas</span>
+                        </div>
+                    </div>
+                </section>
             </div>
         </main>
     </div>
@@ -183,7 +225,7 @@ const graficoTreinamentos = new Chart(ctx, {
     data: {
         labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
         datasets: [{ 
-            label: 'Participação (em %)',
+            label: 'Participação em Treinamentos (em %)',
             data: [85, 90, 75, 95, 88, 92],
             backgroundColor: [
                 'rgb(16, 185, 129)',
@@ -220,7 +262,7 @@ const graficoPostagens = new Chart(ctx2, {
     data: {
         labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
         datasets: [{ 
-            label: 'Participação (em %)',
+            label: 'Qntd Postagens',
             data: [12, 15, 10, 18, 14, 20],
             backgroundColor: [
                 'rgb(217, 48, 48)',
@@ -238,8 +280,7 @@ const graficoPostagens = new Chart(ctx2, {
                 'rgb(217, 48, 48)',
                 'rgb(217, 48, 48)',
             ],
-            borderWidth: 1,
-            borderRadius: 10
+            borderWidth: 1
         }]
     },
     options: {
