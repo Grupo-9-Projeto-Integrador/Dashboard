@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparativo de Lojas</title>
+    <link rel="stylesheet" href="../static/src/css/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../static/src/css/reset.css">
+    <link rel="stylesheet" href="../static/src/css/global.css">
+    <link rel="stylesheet" href="../static/src/css/infoLojas.css">
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="../static/src/assets/Logo Flamboyant.png" alt="">
+            <span class="">Shopping<br>Flamboyant</span>
+        </div>
+        <nav class="nav">
+            <a href="/" class="nav-item active">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+                <span>Dashboard</span>
+            </a>
+        </nav>
+        <div class="sidebar-footer">
+            <button class="nav-item">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Sair
+            </button>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <header class="header">
+            <div class="header-actions">
+                <div class="user-info">
+                    <div class="user-details">
+                        <span class="user-name">Gerência de Relacionamento</span>
+                        <span class="user-role">JP Mall Operações</span>
+                    </div>
+                    <div class="user-avatar">GR</div>
+                </div>
+            </div>
+        </header>
+
+        <main class="dashboard comparison-page">
+            <section class="dashboard-header">
+                <div>
+                    <h1>Comparativo de Lojas</h1>
+                    <p>Visão consolidada das lojas selecionadas no comparador</p>
+                </div>
+                <div class="dashboard-actions">
+                    <a href="/" class="compare-btn">Voltar ao Dashboard</a>
+                </div>
+            </section>
+
+            {{if .Mensagem}}
+            <section class="comparison-empty-state">
+                <article class="summary-card card-yellow">
+                    <div class="summary-card-header">
+                        <div class="summary-icon">🔎</div>
+                        <div>
+                            <span class="summary-title">Comparativo pendente</span>
+                            <p>{{.Mensagem}}</p>
+                        </div>
+                    </div>
+                    <a href="/" class="view-all-link">Abrir o comparador e selecionar lojas</a>
+                </article>
+            </section>
+            {{end}}
+
+            {{if ge (len .Selecionadas) 1}}
+            <section class="comparison-store-grid">
+                {{range $index, $store := .Selecionadas}}
+                <article class="summary-card comparison-store-card {{if eq $index 0}}card-blue{{else if eq $index 1}}card-green{{else}}card-yellow{{end}}">
+                    <div class="summary-card-header">
+                        <div class="summary-icon">🏬</div>
+                        <div>
+                            <span class="summary-title">{{.Nome}}</span>
+                            <p>{{.Segmento}}</p>
+                        </div>
+                    </div>
+                    <div class="comparison-store-meta">
+                        <div class="comparison-meta-item">
+                            <span>LUC</span>
+                            <strong>{{.Luc}}</strong>
+                        </div>
+                        <div class="comparison-meta-item">
+                            <span>Sinistro</span>
+                            <strong>{{.Sinistro}}</strong>
+                        </div>
+                        <div class="comparison-meta-item">
+                            <span>Seguro</span>
+                            <strong>{{.Seguro}}</strong>
+                        </div>
+                        <div class="comparison-meta-item">
+                            <span>Vigência</span>
+                            <strong>{{.VigenciaContrato}}</strong>
+                        </div>
+                        <div class="comparison-meta-item">
+                            <span>Renovação</span>
+                            <strong>{{.DiaDeRenovacao}}</strong>
+                        </div>
+                    </div>
+                </article>
+                {{end}}
+            </section>
+            {{end}}
+
+            {{if ge (len .Selecionadas) 2}}
+            <section class="stores">
+                <div class="stores-header">
+                    <div>
+                        <h2>Comparação consolidada</h2>
+                        <p>Os indicadores abaixo permitem analisar rapidamente as lojas escolhidas</p>
+                    </div>
+                </div>
+                <div class="stores-card">
+                    <div class="table-scroll">
+                        <table class="stores-table comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Indicador</th>
+                                    {{range .Selecionadas}}
+                                    <th>{{.Nome}}</th>
+                                    {{end}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>LUC</td>
+                                    {{range .Selecionadas}}<td>{{.Luc}}</td>{{end}}
+                                </tr>
+                                <tr>
+                                    <td>Segmento</td>
+                                    {{range .Selecionadas}}<td>{{.Segmento}}</td>{{end}}
+                                </tr>
+                                <tr>
+                                    <td>Sinistro</td>
+                                    {{range .Selecionadas}}<td>{{.Sinistro}}</td>{{end}}
+                                </tr>
+                                <tr>
+                                    <td>Seguro</td>
+                                    {{range .Selecionadas}}<td>{{.Seguro}}</td>{{end}}
+                                </tr>
+                                <tr>
+                                    <td>Vigência do contrato</td>
+                                    {{range .Selecionadas}}<td>{{.VigenciaContrato}}</td>{{end}}
+                                </tr>
+                                <tr>
+                                    <td>Dia de renovação</td>
+                                    {{range .Selecionadas}}<td>{{.DiaDeRenovacao}}</td>{{end}}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            {{else}}
+            <section class="comparison-empty-state">
+                <article class="summary-card card-green">
+                    <div class="summary-card-header">
+                        <div class="summary-icon">📌</div>
+                        <div>
+                            <span class="summary-title">Seleção insuficiente</span>
+                            <p>Adicione pelo menos duas lojas no comparador para exibir a análise completa.</p>
+                        </div>
+                    </div>
+                </article>
+            </section>
+            {{end}}
+        </main>
+    </div>
+</body>
+</html>

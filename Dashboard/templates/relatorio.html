@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Executivo</title>
+    <link rel="stylesheet" href="../static/src/css/style.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../static/src/css/reset.css">
+    <link rel="stylesheet" href="../static/src/css/global.css">
+    <link rel="stylesheet" href="../static/src/css/infoLojas.css">
+</head>
+
+<body class="report-body">
+    <main class="report-page">
+        <section class="report-sheet">
+            <header class="report-letterhead">
+                <div class="report-letterhead-brand">
+                    <img src="../static/src/assets/Logo Flamboyant.png" alt="Shopping Flamboyant">
+                    <div>
+                        <span class="report-kicker">{{.Titulo}}</span>
+                        <h1>{{.Subtitulo}}</h1>
+                    </div>
+                </div>
+                <div class="report-letterhead-meta">
+                    <span>Gerado em</span>
+                    <strong>{{.GeradoEm}}</strong>
+                </div>
+            </header>
+
+            <section class="report-summary-grid">
+                <article class="report-summary-card card-blue">
+                    <span>Total de lojas</span>
+                    <strong>{{.TotalLojas}}</strong>
+                </article>
+                <article class="report-summary-card card-green">
+                    <span>Segmentos distintos</span>
+                    <strong>{{.TotalSegmentos}}</strong>
+                </article>
+                <article class="report-summary-card card-yellow">
+                    <span>Lojas com sinistro</span>
+                    <strong>{{len .LojasComSinistro}}</strong>
+                </article>
+            </section>
+
+            <section class="report-section-card">
+                <div class="report-section-header">
+                    <h2>Segmentos em destaque</h2>
+                    <p>Distribuição consolidada da base atual de lojas</p>
+                </div>
+                <div class="report-list-grid">
+                    {{range .Segmentos}}
+                    <div class="report-list-row">
+                        <strong>{{.Nome}}</strong>
+                        <span>{{.Total}} lojas</span>
+                    </div>
+                    {{end}}
+                </div>
+            </section>
+
+            <section class="report-section-card">
+                <div class="report-section-header">
+                    <h2>Lojas com sinistro registrado</h2>
+                    <p>Lista resumida para consulta rápida no fechamento do relatório</p>
+                </div>
+                <div class="report-table-wrap">
+                    <table class="report-table">
+                        <thead>
+                            <tr>
+                                <th>LUC</th>
+                                <th>Loja</th>
+                                <th>Segmento</th>
+                                <th>Sinistro</th>
+                                <th>Seguro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{if .LojasComSinistro}}
+                            {{range .LojasComSinistro}}
+                            <tr>
+                                <td>{{.Luc}}</td>
+                                <td>{{.Nome}}</td>
+                                <td>{{.Segmento}}</td>
+                                <td>{{.Sinistro}}</td>
+                                <td>{{.Seguro}}</td>
+                            </tr>
+                            {{end}}
+                            {{else}}
+                            <tr>
+                                <td colspan="5">Nenhum sinistro registrado na base atual.</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <footer class="report-footer">
+                <div>
+                    <strong>Shopping Flamboyant</strong>
+                    <span>Relatório gerado automaticamente a partir do dashboard</span>
+                </div>
+                <div class="report-footer-actions no-print">
+                    <button type="button" class="report-btn dashboard-modal-action-btn" onclick="window.print()">Baixar relatório</button>
+                    <a href="/" class="compare-btn">Voltar ao Dashboard</a>
+                </div>
+            </footer>
+        </section>
+    </main>
+</body>
+
+</html>

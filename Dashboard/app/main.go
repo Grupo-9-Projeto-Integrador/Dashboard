@@ -16,6 +16,8 @@ func main() {
 	http.HandleFunc("/", db.HandlerSelect)
 
 	http.HandleFunc("/infoLoja", db.FormularioLojasHandler)
+	http.HandleFunc("/comparativo", db.ComparativoHandler)
+	http.HandleFunc("/relatorio", db.RelatorioHandler)
 
 	fmt.Printf("port running on http://localhost:8081/\n")
 
@@ -23,4 +25,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
