@@ -1,0 +1,26 @@
+name: Sincronizar com Repositório Principal
+
+on:
+  push:
+    branches:
+      - main  # Dispara sempre que o grupo atualizar a main deste repositório
+
+jobs:
+  push-to-main-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código atual
+        uses: actions/checkout@v4
+
+      - name: Enviar atualizações para o Sistema Integrado
+        uses: cpina/github-action-push-to-another-repository@main
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.ORGANIZATION_SYNC_TOKEN }}
+        with:
+          source-directory: '.'
+          destination-github-username: 'Grupo-9-Projeto-Integrador' # Nome da sua Organization
+          destination-repository-name: 'Sistema-Integrado-DOCKERS'  # Repositório principal
+          target-branch: 'main'
+          target-directory: 'static' # Pasta destino dentro do principal (ex: static para o front)
+          user-email: 'renanmendes@discente.ufg.br' # Seu e-mail de estudante cadastrado
+          commit-message: 'infra: atualizando componentes automaticamente via org workflow'
